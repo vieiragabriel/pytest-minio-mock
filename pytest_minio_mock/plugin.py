@@ -1112,9 +1112,10 @@ class MockMinioClient:
         Returns:
             str: The presigned URL.
         """
+        prefix = "https" if self._secure else "http"
         if not version_id:
-            return f"{self._base_url}/{bucket_name}/{object_name}"
-        return f"{self._base_url}/{bucket_name}/{object_name}?versionId={version_id}"
+            return f"{prefix}://{self._base_url}/{bucket_name}/{object_name}"
+        return f"{prefix}://{self._base_url}/{bucket_name}/{object_name}?versionId={version_id}"
 
     def presigned_put_object(
         self, bucket_name, object_name, expires=datetime.timedelta(days=7)
